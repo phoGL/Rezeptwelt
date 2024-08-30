@@ -6,6 +6,35 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Rezeptwelt - Startseite</title>
     <link rel="stylesheet" href="style.css">
+    <style>
+        /* Slider-Stile */
+        .slider {
+            width: 100%;
+            overflow: hidden;
+        }
+        .slider-container {
+            display: flex;
+            transition: transform 0.5s ease-in-out;
+        }
+        .slider-item {
+            min-width: 100%;
+            box-sizing: border-box;
+        }
+        .slider-controls {
+            text-align: center;
+            margin-top: 10px;
+        }
+        .slider-controls button {
+            background-color: #A8E6CF;
+            border: none;
+            padding: 10px;
+            margin: 0 5px;
+            cursor: pointer;
+        }
+        .slider-controls button:hover {
+            background-color: #A0CED9;
+        }
+    </style>
 </head>
 <body>
     <header>
@@ -24,19 +53,55 @@
         </div>
     </section>
     
-    <section id="rezepte" class="recipe-grid">
-        <div class="recipe-card">
-            <img src="https://phogl.github.io/Rezeptwelt/Rotbarschfilet.webp" alt="Rotbarschfilet in Sahne-Senfsauce">
-            <h3>Rotbarschfilet in Sahne-Senfsauce</h3>
-            <p>Ein köstliches Fischgericht mit einer cremigen Senfsauce.</p>
-            <a href="rotbarschfilet-rezept-adjusted.html" class="button">Zum Rezept</a>
+    <section id="rezepte" class="slider">
+        <div class="slider-container">
+            <div class="slider-item recipe-card">
+                <img src="rotbarschfilet.webp" alt="Rotbarschfilet in Sahne-Senfsauce">
+                <h3>Rotbarschfilet in Sahne-Senfsauce</h3>
+                <p>Ein köstliches Fischgericht mit einer cremigen Senfsauce.</p>
+                <a href="rotbarschfilet-rezept-adjusted.html" class="button">Zum Rezept</a>
+            </div>
+            <div class="slider-item recipe-card">
+                <img src="mie_nudel_salat.jpg" alt="Mie Nudel Salat">
+                <h3>Mie Nudel Salat</h3>
+                <p>Ein frischer Salat mit Mie-Nudeln und knackigem Gemüse.</p>
+                <a href="mie_nudel_salat.html" class="button">Zum Rezept</a>
+            </div>
+            <!-- Weitere Rezepte können hier hinzugefügt werden -->
         </div>
-        <!-- Weitere Rezeptkarten können hier hinzugefügt werden -->
     </section>
+
+    <div class="slider-controls">
+        <button onclick="prevSlide()">&#10094; Vorheriges</button>
+        <button onclick="nextSlide()">Nächstes &#10095;</button>
+    </div>
     
     <footer id="kontakt">
         <p>© 2024 Rezeptwelt. Alle Rechte vorbehalten.</p>
         <p>Kontakt: <a href="mailto:info@rezeptwelt.de">info@rezeptwelt.de</a></p>
     </footer>
+
+    <script>
+        let currentSlide = 0;
+        const slides = document.querySelectorAll('.slider-item');
+        const totalSlides = slides.length;
+
+        function showSlide(slideIndex) {
+            const sliderContainer = document.querySelector('.slider-container');
+            if (slideIndex >= totalSlides) currentSlide = 0;
+            if (slideIndex < 0) currentSlide = totalSlides - 1;
+            sliderContainer.style.transform = 'translateX(' + (-currentSlide * 100) + '%)';
+        }
+
+        function nextSlide() {
+            currentSlide++;
+            showSlide(currentSlide);
+        }
+
+        function prevSlide() {
+            currentSlide--;
+            showSlide(currentSlide);
+        }
+    </script>
 </body>
 </html>
